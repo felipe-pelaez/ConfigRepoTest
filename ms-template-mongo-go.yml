@@ -4,7 +4,6 @@ server:
 application:
   name: ms-template-mongo-go
 
-
 rabbitmq:
   username: guest
   password: guest
@@ -16,6 +15,7 @@ zipkin:
   enabled: true
 
 mongodb:
+  host: localhost
   database: test
   port: 27017
 
@@ -55,37 +55,38 @@ info:
     description: ms-template-mongo-go
     version: 1.0.0
 
-resilience4j:
-  circuitbreaker:
-    instances:
-      guardandoEnSerieService:
-        slidingWindowType: COUNT_BASED
-        slidingWindowSize: 5
-        failureRateThreshold: 50
-        waitDurationInOpenState: 15000
-        permittedNumberOfCallsInHalfOpenState: 3
-        registerHealthIndicator: true
-        allowHealthIndicatorToFail: false
-        automaticTransitionFromOpenToHalfOpenEnabled: true
-      guardandoEnMovieService:
-        slidingWindowType: COUNT_BASED
-        slidingWindowSize: 5
-        failureRateThreshold: 50
-        waitDurationInOpenState: 15000
-        permittedNumberOfCallsInHalfOpenState: 3
-        registerHealthIndicator: true
-        allowHealthIndicatorToFail: false
-        automaticTransitionFromOpenToHalfOpenEnabled: true
+# Resilience4j may not be directly applicable in Go, verify or remove as needed
+# resilience4j:
+#   circuitbreaker:
+#     instances:
+#       guardandoEnSerieService:
+#         slidingWindowType: COUNT_BASED
+#         slidingWindowSize: 5
+#         failureRateThreshold: 50
+#         waitDurationInOpenState: 15000
+#         permittedNumberOfCallsInHalfOpenState: 3
+#         registerHealthIndicator: true
+#         allowHealthIndicatorToFail: false
+#         automaticTransitionFromOpenToHalfOpenEnabled: true
+#       guardandoEnMovieService:
+#         slidingWindowType: COUNT_BASED
+#         slidingWindowSize: 5
+#         failureRateThreshold: 50
+#         waitDurationInOpenState: 15000
+#         permittedNumberOfCallsInHalfOpenState: 3
+#         registerHealthIndicator: true
+#         allowHealthIndicatorToFail: false
+#         automaticTransitionFromOpenToHalfOpenEnabled: true
 
-  retry:
-    instances:
-      guardandoEnSerieService:
-        waitDuration: 1000
-        maxAttempts: 3
-        retryExceptions:
-          - feign.FeignException$InternalServerError
-      guardandoEnMovieService:
-        waitDuration: 1000
-        maxAttempts: 3
-        retryExceptions:
-          - feign.FeignException$InternalServerError
+#   retry:
+#     instances:
+#       guardandoEnSerieService:
+#         waitDuration: 1000
+#         maxAttempts: 3
+#         retryExceptions:
+#           - feign.FeignException$InternalServerError
+#       guardandoEnMovieService:
+#         waitDuration: 1000
+#         maxAttempts: 3
+#         retryExceptions:
+#           - feign.FeignException$InternalServerError
